@@ -1,0 +1,19 @@
+//Improvement
+void pushZeroesEnd(int *input, int size)
+{
+    //Write your code here
+    int i=0,k=0;
+    while(i<size){
+        if(input[i]!=0)
+        {
+            if(k!=i){
+            int temp=input[k];
+            input[k]=input[i];
+            input[i]=temp;
+            }
+            k++;
+        }
+        i++;
+    }
+}
+            
