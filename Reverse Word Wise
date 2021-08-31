@@ -1,0 +1,33 @@
+void reverseStringWordWise(char input[]) {
+    // Write your code here
+    int i,j=0,l;
+    for(i=0;input[i]!='\0';i++);
+    l=i;
+    //Reversing whole String
+    while(j<i){
+        char temp=input[i-1];
+        input[i-1]=input[j];
+        input[j]=temp;
+        i--;
+        j++;
+}
+    i=0;
+    int k=0;
+    j=0;
+    //Reversing Individual Word
+    while(i<l+1){
+        if(input[i]==' ' || input[i]=='\0')
+        {
+            j=i-1;
+            while(k<=j){
+                char temp=input[j];
+                input[j]=input[k];
+                input[k]=temp;
+                k++;
+                j--;
+            }
+            k=i+1; 
+        }
+         i++; 
+    }
+}
