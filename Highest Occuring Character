@@ -1,0 +1,16 @@
+char highestOccurringChar(char input[]) {
+    // Write your code here
+    int freq[256]={0,0};
+    for(int i=0;input[i]!='\0';i++){
+        freq[input[i]]+=1;
+    }
+    char ans=input[0];
+    int count=freq[input[0]];
+    for(int i=1;input[i]!='\0';i++){
+        if(freq[input[i]]>count){
+            ans=input[i];
+            count=freq[input[i]];
+        }       
+        }
+    return ans;
+}
