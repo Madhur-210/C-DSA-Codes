@@ -1,0 +1,21 @@
+void sort012(int *arr, int n)
+{
+    //Write your code here
+    int i=0,t=n-1,z=0;
+    while(i<=t){
+        if(arr[i]==0){
+            arr[i]=arr[z];
+            arr[z]=0;
+            z++;
+            i++;
+        }
+        else if(arr[i]==2){
+            arr[i]=arr[t];
+            arr[t]=2;
+            t--;
+        }
+        else{
+            i++;
+        }
+    }
+}
