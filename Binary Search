@@ -1,0 +1,20 @@
+int binarySearch(int *input, int n, int val)
+{
+    //Write your code here
+    int s=0,e=n-1,m=(s+e)/2;
+    while(s<=e){
+        if(input[m]==val){
+            return m;
+        }
+        else if(input[m]<val){
+            s=m+1;
+            m=(s+e)/2;
+        }
+                else{
+                    e=m-1;
+                    m=(s+e)/2;
+                }
+        
+    }
+    return -1;
+}
