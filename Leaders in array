@@ -1,0 +1,20 @@
+void Leaders(int* arr,int len)
+{
+	/* Don't write main().
+	 * Don't read input, it is passed as function argument.
+	 * Print your output exactly in the same format as shown. 
+	 * Don't print any extra line.
+	*/
+    int *largestArr=new int[len];
+    int k=0;
+    int largest=INT_MIN;
+    for(int j=len-1;j>=0;j--){
+        if(arr[j]>=largest){
+            largest=arr[j];
+            largestArr[k++]=arr[j];
+        }
+    }
+    for(;k>0;k--){
+        cout<<largestArr[k-1]<<" ";
+    }
+}
