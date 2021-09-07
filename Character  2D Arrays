@@ -1,0 +1,24 @@
+void reverseEachWord(char input[]) {
+    // Write your code here
+    int j=0,k,i;
+    for(i=0;input[i]!='\0';i++){
+        if(input[i]==32){
+            k=i-1;
+            while(j<k){
+                char temp=input[k];
+                input[k]=input[j];
+                input[j]=temp;
+                j++;
+                k--;                
+            }
+            j=i+1;
+        }
+    }
+    while(j<i-1){
+        char temp=input[i-1];
+                input[i-1]=input[j];
+                input[j]=temp;
+                j++;
+                i--;
+    }
+}
