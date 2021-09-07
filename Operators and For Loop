@@ -1,0 +1,15 @@
+#include<iostream>
+using namespace std;
+
+int main() {
+	// Write your code here
+	int n,i=1;
+    cin>>n;
+    int decimalno=0;
+    while(n!=0){
+       decimalno+= (n%10)*i;
+        i*=2;
+        n/=10;
+    }
+    cout<<decimalno;
+}
