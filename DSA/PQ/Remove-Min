@@ -1,0 +1,75 @@
+#include <vector>
+
+class PriorityQueue {
+    vector<int> pq;
+
+   public:
+    bool isEmpty() { 
+        return pq.size() == 0; 
+    }
+
+    int getSize() { 
+        return pq.size(); 
+    }
+
+    int getMin() {
+        if (isEmpty()) {
+            return 0;
+        }
+
+        return pq[0];
+    }
+
+    void insert(int element) {
+        pq.push_back(element);
+
+        int childIndex = pq.size() - 1;
+
+        while (childIndex > 0) {
+            int parentIndex = (childIndex - 1) / 2;
+
+            if (pq[childIndex] < pq[parentIndex]) {
+                int temp = pq[childIndex];
+                pq[childIndex] = pq[parentIndex];
+                pq[parentIndex] = temp;
+            } else {
+                break;
+            }
+
+            childIndex = parentIndex;
+        }
+    }
+
+    int removeMin() {
+        // Write your code here
+        int ans=pq[0];
+        int swap=pq[pq.size()-1];
+        pq[pq.size()-1]=pq[0];
+        pq[0]=swap;
+        pq.pop_back();
+        int pi=0;
+        // int ci1=(2*pi)+1;
+        // int ci2=(2*pi)+2;
+        while(pi<pq.size()){
+            int mini;
+            int ci1=(2*pi)+1;
+            int ci2=(2*pi)+2;
+            if(ci2<pq.size()){
+                mini=pq[ci2]<pq[pi]?ci2:pi;
+            }
+            if(ci1<pq.size()){
+                mini=pq[ci1]<pq[mini]?ci1:mini;
+            }
+            if(pq[mini]<pq[pi]){
+                int swap=pq[mini];
+                pq[mini]=pq[pi];
+                pq[pi]=swap;
+            }
+            else{
+                break;
+            }
+            pi=mini;          
+        }
+        return ans;
+    }
+};
