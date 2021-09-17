@@ -18,3 +18,30 @@ void stringCompression(char input[]) {
         }
     input[++ch]='\0';
 }
+
+// After Function Prototype Got Change
+string getCompressedString(string input) {
+    // Write your code here
+    int ch=0,count=1;
+    for(int i=1;input[i]!='\0';i++){
+        if(input[i]==input[i-1]){
+            count++;
+        }
+        else if(count>1){
+            input[++ch]=count+48;
+            input[++ch]=input[i];
+            count=1;
+        }
+        else
+        input[++ch]=input[i];
+    }
+    if(count>1){
+            input[++ch]=count+48;
+        }
+    input[++ch]='\0';
+    string str="";
+    for(int i=0;input[i]!='\0';i++){
+        str+=input[i];
+    }
+    return str;
+}
