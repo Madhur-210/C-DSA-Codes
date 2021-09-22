@@ -1,0 +1,76 @@
+//Slow Fast Approach
+bool isPalindrome(Node *head)
+{
+    //Write your code here
+    if(head==NULL){
+        return true;
+    }
+    Node *slow =head;
+    Node *fast=head->next ;
+    Node *initial= head;
+    while(fast!=NULL && fast->next!=NULL){
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+    Node *newhead=slow->next;
+    slow->next=NULL;
+    Node * prev=NULL;
+    Node *curr=newhead;
+    Node *next=NULL;
+    while(curr!=NULL){
+        next=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=next;
+    }
+    newhead=prev;
+    while(newhead!=NULL && head!=NULL){
+        if(newhead->data!=head->data){
+            return false;
+        }
+        newhead=newhead->next;
+        head=head->next;
+    }
+    return true;
+}
+//Iterative Approach
+bool isPalindrome(Node *head)
+{
+    //Write your code here
+    if(head==NULL){
+        return true;
+    }
+    Node* temp=head;
+    int count=0;
+    while(temp!=NULL){
+        temp=temp->next;
+        count++;
+    }
+    temp=head;
+    Node *h1=head;
+    int i=0;
+    while(i<count/2-1){
+        temp=temp->next;
+        i++;
+    }
+    Node*h2=temp->next;
+    temp->next=NULL;
+    Node *p=NULL;
+    Node *c=h2;
+    Node*n=NULL;
+    while(c!=NULL){
+        n=c->next;
+        c->next=p;
+        p=c;
+        c=n;
+    }
+    h2=p;
+    while(h1!=NULL && h2!=NULL){
+        if(h1->data!=h2->data){
+            return false;
+        }
+        h1=h1->next;
+        h2=h2->next;
+    }
+    return true;
+}
