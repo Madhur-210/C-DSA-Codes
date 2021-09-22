@@ -1,0 +1,30 @@
+int findNode(Node *head, int n)
+{
+    //Write your code here
+    int count=0;
+    if(head==NULL){
+        return -1;
+    }
+    while(head!=NULL){
+        if(head->data==n){
+            return count;
+        }
+        head=head->next;
+        count++;
+    }
+    return -1;
+}
+// int findNode(Node *head, int n){
+//     // Write your code here.
+//     if(head==NULL){
+//         return -1;
+//     }
+//     if(head->data==n){
+//         return 0;
+//     }
+//     int smallans = findNode(head->next,n);
+//     if(smallans==-1){
+//         return -1;
+//     }
+//     return smallans+1;
+// }
