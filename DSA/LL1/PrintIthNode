@@ -1,0 +1,18 @@
+void printIthNode(Node *head, int i)
+{
+    //Write your code here
+    if(i==0){
+        return;
+    }
+    int count=0;
+    while(head!=NULL){
+        if(count==i){
+            cout<<head->data<<endl;
+            return ;
+        }
+        else{
+            head=head->next;
+        }
+        count++;
+    }
+}
