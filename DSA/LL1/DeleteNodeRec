@@ -1,0 +1,13 @@
+Node *deleteNodeRec(Node *head, int pos) {
+	//Write your code here
+    if(head==NULL){
+        return head;
+    }
+    if(pos==0){
+        Node *temp=head;
+        head=head->next;
+        delete temp;
+        return head;
+    }
+    head->next=deleteNodeRec(head->next,pos-1);
+}
