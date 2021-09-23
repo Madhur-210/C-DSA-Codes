@@ -1,0 +1,51 @@
+Node *evenAfterOdd(Node *head)
+{
+    if(head==NULL || head->next ==NULL)
+  {
+    return head;
+  }
+	//write your code here
+    Node * oh=NULL;
+    Node * ot=NULL;
+    Node * eh=NULL;
+    Node * et=NULL;
+    
+    Node * temp=head;
+    while(temp!=NULL){
+        if(temp->data%2==1){
+            if(oh==NULL){
+                oh=temp;
+                ot=temp;
+            }
+            else{
+                ot->next=temp;
+                ot = ot->next;
+            }
+            temp=temp->next;
+        }
+        else{
+            if(eh==NULL){
+                eh=temp;
+                et=temp;
+            }
+            else{
+                et->next=temp;
+                et = et->next;
+            }
+            temp=temp->next;
+        }
+    }
+    if(oh==NULL){
+        et->next=NULL;
+        return eh;
+    }
+    else if(eh==NULL){
+        ot->next=NULL;
+        return oh;
+    }
+    else{
+        ot->next=eh;
+        et->next=NULL;
+        return oh;
+    }
+}
