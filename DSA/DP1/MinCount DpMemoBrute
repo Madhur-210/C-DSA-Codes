@@ -1,0 +1,55 @@
+//==================Brute Force=======================
+// int minCount(int n)
+// {
+// 	//Write your code here
+//     if(n==0){
+//         return 0;
+//     }
+//     int mini=INT_MAX;
+//     for(int i=1;i<=sqrt(n);i++){
+//         int minimum= minCount(n-i*i);
+//         if(mini>minimum){
+//             mini=minimum;
+//         }
+//     }
+//     return mini+1;
+// }
+//==============Memo====================
+// int minCount(int n,int *ans){
+//     if(n==0){
+//         return 0;
+//     }
+//     if(ans[n]!=-1){
+//         return ans[n];
+//     }
+//     int mini=INT_MAX;
+//     for(int i=1;i<=sqrt(n);i++){
+//         int minimum= minCount(n-i*i,ans);
+//         if(mini>minimum){
+//             mini=minimum;
+//         }
+//     }
+//     ans[n]=mini+1;
+//     return mini+1;
+// }
+// int minCount(int n){
+//     int *ans=new int[n+1];
+//     for(int i=0;i<=n;i++){
+//         ans[i]=-1;
+//     }
+//     return minCount(n,ans);
+// }
+
+//============Dp===========
+int minCount(int n){
+    int *ans=new int[n+1];
+    ans[0]=0;
+    for(int i=1;i<=n;i++){
+        int mini=INT_MAX;
+        for(int j=1;j*j<=i;j++){
+            mini=min(mini,ans[i-j*j]);
+        }
+        ans[i]=mini+1;
+    }
+    return ans[n];
+}
