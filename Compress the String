@@ -40,8 +40,32 @@ string getCompressedString(string input) {
         }
     input[++ch]='\0';
     string str="";
-    for(int i=0;input[i]!='\0';i++){
+    for(int i=0;i<input.size();i++){
         str+=input[i];
+    }
+    return str;
+}
+
+//Further Improved
+string getCompressedString(string input) {
+    // Write your code here
+    int ch=0,count=1;
+    string str="";
+    str+=input[0];
+    for(int i=1;input[i]!='\0';i++){
+        if(input[i]==input[i-1]){
+            count++;
+        }
+        else if(count>1){
+            str+=count+48;
+            str+=input[i];
+            count=1;
+        }
+        else
+            str+=input[i];
+    }
+    if(count>1){
+        str+=count+48;
     }
     return str;
 }
