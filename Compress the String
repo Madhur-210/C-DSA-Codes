@@ -52,7 +52,7 @@ string getCompressedString(string input) {
     int ch=0,count=1;
     string str="";
     str+=input[0];
-    for(int i=1;input[i]!='\0';i++){
+    for(int i=1;i<input.size();i++){
         if(input[i]==input[i-1]){
             count++;
         }
