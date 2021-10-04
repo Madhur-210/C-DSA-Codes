@@ -1,0 +1,41 @@
+int partition(int input[],int si,int ei){
+    int count=0;
+    for(int i=si+1;i<ei+1;i++){
+        if(input[si]>input[i]){
+            count++;
+        }
+    }
+    int temp=input[si];
+    input[si]=input[si+count];
+    input[si+count]=temp;
+    int i=si,j=ei,pivot=si+count;
+    while(i<pivot || j>pivot){
+        if(input[i]<input[pivot]){
+            i++;
+        }
+        else if(input[j]>=input[pivot]){
+            j--;
+        }
+        else{
+            int swap=input[i];
+            input[i]=input[j];
+            input[j]=swap;
+            i++;
+            j--;
+        }
+    }
+    return pivot;
+}
+
+void quickSort(int input[],int si,int ei){
+    if(si>=ei){
+        return;
+    }
+    int pivot=partition(input,si,ei);
+    quickSort(input,si,pivot-1);
+    quickSort(input,pivot+1,ei);
+}
+
+void quickSort(int input[], int size) {
+  quickSort(input,0,size-1);
+}
