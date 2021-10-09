@@ -1,0 +1,22 @@
+class ComplexNumbers {
+    // Complete this class
+    public:
+    int real;
+    int imag;
+    ComplexNumbers(int real,int imag){
+        (*this).real=real;
+        (*this).imag=imag;
+    }
+    void plus(ComplexNumbers C){
+        (*this).real=(*this).real+C.real;
+        (*this).imag=(*this).imag+C.imag;
+    }
+    void multiply(ComplexNumbers C){
+        int temp=(*this).real;
+        (*this).real=(*this).real*C.real-(*this).imag*C.imag;
+        (*this).imag=(*this).imag*C.real+C.imag*temp;
+    }
+    void print(){
+        cout<<real<<" + i"<<imag<<endl;
+    }
+};
