@@ -1,0 +1,99 @@
+class Polynomial {
+public:
+    int *degCoeff;      // Name of your array (Don't change this)
+    int size;
+    // Complete the class
+    Polynomial(int size=2){
+        degCoeff=new int[size];
+        for(int i=0;i<size;i++){
+            degCoeff[i]=0;
+        }
+        this->size=size;
+    }
+    Polynomial(Polynomial const&P){
+        int *newdegCoeff=new int [P.size];
+        for(int i=0;i<P.size;i++){
+            newdegCoeff[i]=P.degCoeff[i];
+        }
+        degCoeff=newdegCoeff;
+        size=P.size;
+    }
+    void setCoefficient(int deg,int coeff){
+        if(deg<size){
+            degCoeff[deg]=coeff;
+            return;
+        }
+        int *newdegCoeff=new int [deg+1];
+        for(int i=0;i<size;i++){
+            newdegCoeff[i]=degCoeff[i];
+        }
+        for(int i=size;i<deg;i++){
+            newdegCoeff[i]=0;
+        }
+        newdegCoeff[deg]=coeff;
+        delete []degCoeff;
+        degCoeff=newdegCoeff;
+        size=deg+1;
+    }
+    Polynomial operator+(Polynomial const&P){
+        int length=max(P.size,size);
+        Polynomial ans(length);
+        int i=0;
+        while(i<size && i<P.size){
+            ans.degCoeff[i]=degCoeff[i]+P.degCoeff[i];
+            i++;
+        }
+        while(i<size){
+            ans.degCoeff[i]=degCoeff[i];
+            i++;
+        }
+        while(i<P.size){
+            ans.degCoeff[i]=P.degCoeff[i];
+            i++;
+        }
+        return ans;
+    }
+    Polynomial operator-(Polynomial const&P){
+        int length=max(P.size,size);
+        Polynomial ans(length);
+        int i=0;
+        while(i<size && i<P.size){
+            ans.degCoeff[i]=degCoeff[i]-P.degCoeff[i];
+            i++;
+        }
+        while(i<size){
+            ans.degCoeff[i]=degCoeff[i];
+            i++;
+        }
+        while(i<P.size){
+            ans.degCoeff[i]=-P.degCoeff[i];
+            i++;
+        }
+        return ans;
+    }
+    Polynomial operator*(Polynomial const&P){
+        int length=P.size+size;
+        Polynomial ans(length);
+        for(int i=0;i<size;i++){
+            for(int j=0;j<P.size;j++){
+                ans.degCoeff[i+j]+=degCoeff[i]*P.degCoeff[j];
+            }
+        }
+        return ans;
+    }
+    void operator=(Polynomial const&P){
+        int *newdegCoeff=new int [P.size];
+        for(int i=0;i<P.size;i++){
+            newdegCoeff[i]=P.degCoeff[i];
+        }
+        degCoeff=newdegCoeff;
+        size=P.size;
+    }
+    void print(){
+        for(int i=0;i<size;i++){
+            if(degCoeff[i]!=0){
+                cout<<degCoeff[i]<<"x"<<i<<" ";
+            }
+        }
+    }
+};
