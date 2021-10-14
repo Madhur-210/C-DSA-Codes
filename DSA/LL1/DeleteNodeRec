@@ -10,4 +10,5 @@ Node *deleteNodeRec(Node *head, int pos) {
         return head;
     }
     head->next=deleteNodeRec(head->next,pos-1);
+    return head;
 }
