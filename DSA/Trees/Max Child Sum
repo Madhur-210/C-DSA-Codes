@@ -1,4 +1,4 @@
-// MAX Child Sum
+//First Approach
 TreeNode<int>* maxSumNode(TreeNode<int>* root) {
     // Write your code here
     //Find Current Node and it's Child's Sum
@@ -21,4 +21,42 @@ TreeNode<int>* maxSumNode(TreeNode<int>* root) {
         }
     }
     return ans;
+}
+
+//Second Approach
+template <typename T>
+class Pair{
+public:
+    TreeNode<int>* node;
+    int sum;
+};
+Pair<int> maxSum(TreeNode<int>* root) {
+    // Write your code here
+    Pair<int> ans;
+    ans.node=root;
+    ans.sum=root->data;
+    //Find Current Node and it's Child's Sum
+    for(int i=0;i<root->children.size();i++){
+        ans.sum+=root->children[i]->data;
+    }
+    //Calling Recursion for getting it's ans
+    for(int i=0;i<root->children.size();i++){
+        Pair<int> smallans=maxSum(root->children[i]);
+        
+        // Using Pair class this piece of code becomes redundant
+        // Calculating Rec Ans Node Sum
+        // int smallansSum=smallans->data;
+        // for(int i=0;i<smallans->children.size();i++){
+        //     smallansSum+=smallans->children[i]->data;
+        // }
+        
+        //Now checking Rec ans with Current ans
+        if(ans.sum<smallans.sum){
+            ans=smallans;
+        }
+    }
+    return ans;
+}
+TreeNode<int>* maxSumNode(TreeNode<int>* root) {
+    return maxSum(root).node;
 }
