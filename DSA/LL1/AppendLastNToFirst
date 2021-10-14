@@ -49,3 +49,63 @@ Node *appendLastNToFirst(Node *head, int n)
     head=temp;
     return head;
 }
+
+//More Optimized Solutions
+// Node *appendLastNToFirst(Node *head, int n)
+// {
+//     //Write your code here
+//     if(head==NULL){
+//         return head;
+//     }
+//     if(n==0){
+//         return head;
+//     }
+//     //Finding Length
+//     Node *temp=head;
+//     int length=0;
+//     while(temp!=NULL){
+//         length++;
+//         temp=temp->next;
+//     }    
+//     temp=head;
+//     int i=0;
+//     Node *newhead;
+//     Node *end;
+//     while(temp->next!=NULL){
+//         if(i==length-n-1){
+//             end=temp;  // Breaking the List
+//             newhead=temp->next;
+//         }
+//         temp=temp->next;
+//         i++;
+//     }
+//     temp->next=head;
+//     end->next=NULL;
+//     return newhead;
+// }
+
+Node *appendLastNToFirst(Node *head, int n)
+{
+    //Write your code here
+    if(head==NULL){
+        return head;
+    }
+    if(n==0){
+        return head;
+    }
+    Node *slow=head;
+    Node *fast=head;
+    int count=0;
+    while(fast!=NULL && count<n){
+        fast=fast->next;
+        count++;
+    }
+    while(fast->next!=NULL){
+        slow=slow->next;
+        fast=fast->next;
+    }
+    fast->next=head;
+    head=slow->next;
+    slow->next=NULL;
+    return head;
+}
