@@ -1,0 +1,64 @@
+//This Solution won't work for i==0||j==0
+Node *swapNodes(Node *head, int i, int j)
+{
+    Node *pi=NULL,*pj=NULL,*ci=NULL,*cj=NULL;
+    int count=0;
+    Node *temp=head;
+    Node *prev=NULL;
+    while(head!=NULL){
+        if(count==i){
+            ci=head;
+            pi=prev;
+        }
+        if(count==j){
+            cj=head;
+            pj=prev;
+        }
+        prev=head;
+        head=head->next;
+        count++;
+    }
+    pi->next=cj;
+    pj->next=ci;
+    Node *save=cj->next;
+    cj->next=ci->next;
+    ci->next=save;
+    return temp;
+}
+//This Solution work for i==0||j==0 
+Node *swapNodes(Node *head, int i, int j)
+{
+    Node *pi=NULL,*pj=NULL,*ci=NULL,*cj=NULL;
+    int count=0;
+    Node *temp=head;
+    Node *prev=NULL;
+    while(head!=NULL){
+        if(count==i){
+            ci=head;
+            pi=prev;
+        }
+        if(count==j){
+            cj=head;
+            pj=prev;
+        }
+        prev=head;
+        head=head->next;
+        count++;
+    }
+    if(pi==NULL){
+        temp=cj;
+    }
+    else{
+        pi->next=cj;
+    }
+    if(pj==NULL){
+        temp=ci;
+    }
+    else{
+       pj->next=ci; 
+    }
+    Node *save=cj->next;
+    cj->next=ci->next;
+    ci->next=save;
+    return temp;
+}
