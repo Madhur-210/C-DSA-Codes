@@ -1,0 +1,73 @@
+// My Code
+Node *skipMdeleteN(Node *head, int M, int N)
+{
+	// Write your code here
+    if(head==NULL){
+        return head;
+    }
+    if(M==0){
+        return NULL;
+    }
+    if(N==0){
+        return head;
+    }
+    int countM=1;
+    int countN=0;
+    Node *anshead=head;
+    Node *anstail=head;
+    while(head!=NULL){
+        while(head !=NULL && countM<M){
+            anstail->next=head->next;
+            anstail=anstail->next;
+            countM++;
+            head=head->next;
+        }
+        countN=0;
+        while(head !=NULL && countN<N){
+            countN++;
+            head=head->next;
+        }
+        countM=0;
+    }
+    if(anstail!=NULL)
+        anstail->next=NULL;
+    return anshead;
+}
+//Ninjas Ans
+Node *skipMdeleteN(Node *head, int M, int N)
+{
+	// Write your code here
+    if(head==NULL){
+        return head;
+    }
+    if(M==0){
+        return NULL;
+    }
+    if(N==0){
+        return head;
+    }
+    Node *currNode=head;
+    Node *temp=NULL;
+    while(currNode!=NULL){
+        int take=0;
+        int skip=0;
+        while(currNode!=NULL && take<M){
+            if(temp==NULL){
+                temp=currNode;
+            }
+            else{
+                temp->next=currNode;
+                temp=temp->next;
+            }
+            take++;
+            currNode=currNode->next;
+        }
+        while(currNode!=NULL && skip<N){
+            skip++;
+            currNode=currNode->next;
+        }
+    }
+    if(temp!=NULL)
+        temp->next=NULL;
+    return head;
+}
