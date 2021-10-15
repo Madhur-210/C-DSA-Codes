@@ -1,0 +1,38 @@
+Node *reverseLinkedListRec(Node *head)
+{
+    //Write your code here
+    if(head==NULL || head->next==NULL){
+        return head;
+    }
+    Node *newhead=reverseLinkedListRec(head->next);
+    Node *temp=newhead;
+    head->next->next=head;
+    head->next=NULL;
+    return newhead;
+}
+
+Node *kReverse(Node *head, int k)
+{
+	//Write your code here
+    if(head==NULL){
+        return head;
+    }
+    if(k==0){
+        return head;
+    }
+    int count=0;
+    Node *temp=head;
+    while(temp!=NULL && count<k-1){
+        temp=temp->next;
+        count++;
+    }
+    if(temp==NULL && count!=k-1){
+        return reverseLinkedListRec(head);
+    }
+    Node *nexthead=temp->next;
+    temp->next=NULL;
+    Node *anstail=head;
+    Node *anshead=reverseLinkedListRec(head); 
+    anstail->next=kReverse(nexthead,k);
+    return anshead;
+}
