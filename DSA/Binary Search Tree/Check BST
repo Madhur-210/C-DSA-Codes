@@ -1,0 +1,17 @@
+#include<climits>
+bool isBST(BinaryTreeNode<int> *root,int max,int min) {
+	// Write your code here
+    if(root==NULL){
+        return true;
+    }
+    if(root->data>max){
+        return false;
+    }
+    if(root->data<min){
+        return false;
+    }
+    return isBST(root->left,root->data,min)&&isBST(root->right,max,root->data);
+}
+bool isBST(BinaryTreeNode<int> *root){
+    return isBST(root,INT_MAX,INT_MIN);
+}
