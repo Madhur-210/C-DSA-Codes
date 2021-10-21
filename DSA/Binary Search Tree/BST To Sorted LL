@@ -1,0 +1,18 @@
+Node<int>* constructLinkedList(BinaryTreeNode<int>* root) {
+	// Write your code here
+    if(root==NULL){
+        return NULL;
+    }
+    Node<int>*lefthead=constructLinkedList(root->left);
+    Node<int>* newNode=new Node<int>(root->data);
+    newNode->next=constructLinkedList(root->right);
+    Node<int>*head=lefthead;
+    if(lefthead==NULL){
+        return newNode;
+    }
+    while(lefthead->next!=NULL){
+        lefthead=lefthead->next;
+    }
+    lefthead->next=newNode;
+    return head;
+}
