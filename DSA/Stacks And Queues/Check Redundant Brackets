@@ -1,0 +1,25 @@
+#include<stack>
+bool checkRedundantBrackets(string exp) {
+	// Write your code here
+    stack<int> redundant;
+    int count=0;
+    for(int i=0;i<exp.size();i++){
+        if(exp[i]!=')'){
+            redundant.push(exp[i]);
+            count=0;
+        }
+        else{
+            while(!redundant.empty() && redundant.top()!='('){
+                redundant.pop();
+                count++;
+            }
+            redundant.pop();
+            if(count<2){
+                return true;
+            }
+            count=0;
+        }
+        
+    }
+    return false;
+}
