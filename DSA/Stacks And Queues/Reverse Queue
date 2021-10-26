@@ -1,0 +1,28 @@
+#include<stack>
+#include<queue>
+// void reverseQueue(queue<int> &input) {
+// 	// Write your code here
+//     if(input.size()==0){
+//         return ;
+//     }
+//     stack<int>q;
+//     while(!input.empty()){
+//         q.push(input.front());
+//         input.pop();
+//     }
+//     while(!q.empty()){
+//         input.push(q.top());
+//         q.pop();
+//     }
+// }
+//Way 2
+void reverseQueue(queue<int> &input) {
+	// Write your code here
+    if(input.size()==0){
+        return ;
+    }
+    int ans=input.front();
+    input.pop();
+    reverseQueue(input);
+    input.push(ans);
+}
