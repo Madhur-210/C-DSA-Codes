@@ -1,0 +1,35 @@
+#include<stack>
+int countBracketReversals(string input) {
+	// Write your code here
+    if(input.size()%2==1){
+        return -1;
+    }
+    stack<char> s;
+    int count=0;
+    for(int i=0;i<input.size();i++){
+        if(input[i]=='{'){
+            s.push('{');
+        }
+        else{
+            if(!s.empty() && s.top()=='{'){
+                s.pop();
+            }
+            else{
+                s.push('}');
+            }
+        }
+    }
+    while(!s.empty()){
+        char c1=s.top();
+        s.pop();
+        char c2=s.top();
+        if(c1==c2){
+            count++;
+        }
+        else{
+            count+=2;
+        }
+        s.pop();
+    }
+    return count;
+}
