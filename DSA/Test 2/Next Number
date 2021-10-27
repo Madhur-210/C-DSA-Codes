@@ -1,0 +1,30 @@
+int NextLarge(Node *head){
+    if(head->next==NULL){
+        if(head->data==9){
+            head->data=0;
+            return 1;
+        }
+        else{
+            head->data+=1;
+            return 0;
+        }
+    }
+    int carry=NextLarge(head->next);
+    if(carry==1){
+        head->data+=1;
+        head->data%=10;
+    }
+    return carry;
+}
+Node* NextLargeNumber(Node *head) {
+    if(head==NULL){
+       return NULL;
+    }
+    int carry = NextLarge(head);
+    if(carry==1){
+        Node *newNode=new Node(1);
+        newNode->next=head;
+        return newNode;
+    }
+    return head;
+}
