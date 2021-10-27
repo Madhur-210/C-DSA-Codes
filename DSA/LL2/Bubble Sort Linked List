@@ -1,0 +1,48 @@
+int length(Node *head)
+{
+    //Write your code here
+    if(head==NULL){
+        return 0;
+    }
+    int count=0;
+    while(head!=NULL){
+        count++;
+        head=head->next;
+    }
+    return count;
+}
+
+Node *bubbleSort(Node *head)
+{
+	// Write your code here
+    if(head==NULL || head->next==NULL){
+        return head;
+    }
+    int l=length(head);
+    
+    for(int i=0;i<l;i++){
+        Node *prev=NULL,*curr=head;
+        while(curr->next!=NULL){
+            if(curr->data>curr->next->data){
+                if(prev!=NULL){
+                    Node *follow=curr->next->next;
+                    curr->next->next=curr;
+                    prev->next=curr->next;
+                    curr->next=follow;
+                    prev=prev->next;
+                }
+                    else{
+                        head=curr->next;
+                        curr->next=head->next;
+                        head->next=curr;
+                        prev=head;
+                    }
+                }
+                else{
+                    prev=curr;
+                    curr=curr->next;
+                }
+            }
+        }
+    return head;
+}
