@@ -40,6 +40,7 @@
  }
  
  ************/
+//---------My Original Code---------
 
 class Deque {
     // Complete this class
@@ -135,6 +136,102 @@ class Deque {
             return;
         }
         rear=rear-1;
+        size--;
+        
+    }
+    int getFront(){
+        if(size==0){
+            return -1;
+        }
+        return arr[front];
+    }
+    int getRear(){
+        if(size==0){
+            return -1;
+        }
+        return arr[rear];
+    }
+};
+
+// --------- Redundant Code -------------
+class Deque {
+    // Complete this class
+    int size;
+    int capacity;
+    int *arr;
+    int rear;
+    int front;
+    public:
+    Deque(int s=10){
+        arr=new int[s];
+        capacity=s;
+        front=-1;
+        rear=-1;
+        size=0;
+    }
+    void insertFront(int element){
+        if(size==capacity){
+            cout<<-1<<endl;
+            return ;
+        }
+        if(front==-1){
+            front=0;
+            rear=0;
+        }
+        else if(front==0){
+            front=capacity-1;
+        }
+        else{
+            front--;
+        }
+        arr[front]=element;
+        size++;
+    }
+       
+    void insertRear(int element){
+        if(size==capacity){
+            cout<<-1<<endl;
+            return ;
+        }
+        if(rear==-1){
+            rear=0;
+            front=0;            
+        }
+        else{
+            rear=(rear+1)%capacity;
+        }
+        arr[rear]=element;
+        size++;
+    }
+    void deleteFront(){
+        if(size==0){
+            cout<<-1<<endl;
+            return ;
+        }
+        if(front==rear){
+            front=-1;
+            rear=-1;
+        }
+        else{
+            front=(front+1)%capacity;
+        }
+        size--;
+    }
+    void deleteRear(){
+        if(size==0){
+            cout<<-1<<endl;
+            return ;
+        }
+        if(front==rear){
+            front=-1;
+            rear=-1;
+        }
+        if(rear==0){
+            rear=capacity-1;
+        }
+        else{
+            rear=rear-1;
+        }
         size--;
         
     }
