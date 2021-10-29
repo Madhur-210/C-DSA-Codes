@@ -1,0 +1,18 @@
+int height(BinaryTreeNode<int>* root) {
+    // Write our code here
+    if(root==NULL){
+        return 0;
+    }
+    return 1+max(height(root->left),height(root->right));
+}
+
+bool isNodePresent(BinaryTreeNode<int> *root, int x) {
+    // Write your code here
+    if(root==NULL){
+        return false;
+    }
+    if(root->data==x){
+        return true;
+    }
+    return isNodePresent(root->left,x) || isNodePresent(root->right,x);
+}
