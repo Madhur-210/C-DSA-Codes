@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+pair<int, int> getMinAndMax(BinaryTreeNode<int> *root) {
+	// Write your code here
+    int mini=INT_MAX;
+    int maxi=INT_MIN;
+    pair<int,int>ans;
+    ans.first=mini;
+    ans.second=maxi;
+    if(root==NULL){
+        return ans;
+    }
+    if(root->data<mini){
+        mini=root->data;
+    }
+    if(root->data>maxi){
+        maxi=root->data;
+    }
+    pair <int,int> p=getMinAndMax(root->left);
+    if(p.first<mini){
+        mini=p.first;
+    }
+    if(p.second>maxi){
+        maxi=p.second;
+    }
+    p=getMinAndMax(root->right);
+    if(p.first<mini){
+        mini=p.first;
+    }
+    if(p.second>maxi){
+        maxi=p.second;
+    }
+    ans.first=mini;
+    ans.second=maxi;
+    return ans;
+}
