@@ -1,0 +1,14 @@
+void printNodesWithoutSibling(BinaryTreeNode<int> *root) {
+    // Write your code here
+    if(root==NULL){
+        return;
+    }
+    if(root->left==NULL && root->right){
+        cout<<root->right->data<<" ";
+    }
+    if(root->right==NULL && root->left){
+        cout<<root->left->data<<" ";
+    }
+    printNodesWithoutSibling(root->left);
+    printNodesWithoutSibling(root->right);
+}
