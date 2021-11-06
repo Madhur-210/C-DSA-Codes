@@ -1,0 +1,43 @@
+//-----------First Approach------------
+int height(BinaryTreeNode<int>* root) {
+    if(root==NULL){
+        return 0;
+    }
+    return 1+max(height(root->left),height(root->right));
+}
+bool isBalanced(BinaryTreeNode<int> *root) {
+    if(root==NULL){
+    return true;
+	}
+	bool ans=isBalanced(root->left);
+	if(ans==false){
+	return false;
+	}
+	ans=isBalanced(root->right);
+	if(ans==false){
+	return false;
+	}
+	return abs(height(root->left)-height(root->right))<=1;
+}
+
+//-----------------Second Approach-----------------
+
+pair<int,bool> BalHeight(BinaryTreeNode<int>* root){
+    if(root==NULL){
+        pair<int,int> p;
+        p.first=0;
+        p.second=true;
+        return p;
+    }
+    pair<int,bool> leftans=BalHeight(root->left);
+    pair<int,bool> rightans=BalHeight(root->right);
+    pair<int,bool> ans;
+    ans.first=1+max(leftans.first,rightans.first);
+    ans.second=leftans.second && rightans.second;
+    ans.second=ans.second && abs(leftans.first-rightans.first)<=1;
+    return ans;
+}
+
+bool isBalanced(BinaryTreeNode<int> *root) {
+    return BalHeight(root).second;
+}
