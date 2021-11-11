@@ -1,0 +1,62 @@
+#include<vector>
+#include<algorithm>
+void fill(BinaryTreeNode<int> *root,vector<int>&v){
+    if(root==NULL){
+        return;
+    }
+    v.push_back(root->data);
+    fill(root->left,v);
+    fill(root->right,v);
+}
+void pairSum(BinaryTreeNode<int> *root, int sum) {
+    // Write your code here
+    vector<int> v;
+    fill(root,v);
+    sort(v.begin(),v.end());
+    int i=0,j=v.size()-1;
+    while(i<j){
+        if(v[i]+v[j]==sum){
+            cout<<v[i]<<" "<<v[j]<<endl;
+            i++;
+            j--;
+        }
+        else if(v[i]+v[j]<sum){
+            i++;
+        }
+        else{
+            j--;
+        }
+    }
+}
+// #include<vector>
+// #include<algorithm>
+// bool find(BinaryTreeNode<int> *root, int num,int sum){
+//     if(root==NULL){
+//         return false;
+//     }
+//     if(root->data==-10){
+//         return false;
+//     }
+//     if(root->data==num){
+//         int small=num>sum-root->data?sum-root->data:num;
+//         int large=sum-small;
+//         if(small!=large)
+//         cout<<small<<" "<<large<<endl;
+//         root->data=-10;
+//         return true;
+//     }
+//     return find(root->left,num,sum) || find(root->right,num,sum);
+// }
+// void pairSum(BinaryTreeNode<int> *mainroot,BinaryTreeNode<int> *root, int sum) {
+//     // Write your code here
+//     if(root==NULL){
+//         return;
+//     }
+//     if(root->data!=-10)
+//     find(mainroot,sum-root->data,sum);
+//     pairSum(mainroot,root->left,sum);
+//     pairSum(mainroot,root->right,sum);
+// }
+// void pairSum(BinaryTreeNode<int> *root, int sum) {
+//     pairSum(root,root,sum);
+// }
