@@ -1,0 +1,35 @@
+#include<climits>
+int height(BinaryTreeNode<int>* root) {
+    // Write our code here
+    if(root==NULL){
+        return 0;
+    }
+    return 1+max(height(root->left),height(root->right));
+}
+bool isBST(BinaryTreeNode<int> *root,int max,int min) {
+	// Write your code here
+    if(root==NULL){
+        return true;
+    }
+    if(root->data>max){
+        return false;
+    }
+    if(root->data<min){
+        return false;
+    }
+    return isBST(root->left,root->data,min)&&isBST(root->right,max,root->data);
+}
+bool isBST(BinaryTreeNode<int> *root){
+    return isBST(root,INT_MAX,INT_MIN);
+}
+
+int largestBSTSubtree(BinaryTreeNode<int> *root) {
+    // Write your code here
+    if(root==NULL){
+        return 0;
+    }
+    if(isBST(root)){
+        return height(root);
+    }
+    return max(largestBSTSubtree(root->left),largestBSTSubtree(root->right));    
+}
