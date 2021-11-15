@@ -1,0 +1,39 @@
+#include<climits>
+class largestBST{
+    public:
+    int min;
+    int max;
+    bool isBST;
+    int height;
+};
+
+largestBST helper(BinaryTreeNode<int> *root){
+    largestBST smallans;
+    if(root==NULL){
+        smallans.max=INT_MIN;
+        smallans.min=INT_MAX;
+        smallans.isBST=true;
+        smallans.height=0;
+        return smallans;
+    }
+    largestBST leftans=helper(root->left);
+    largestBST rightans=helper(root->right);
+    
+    smallans.max=max(root->data,max(leftans.max,rightans.max));
+    smallans.min=min(root->data,min(leftans.min,rightans.min));
+
+    if(leftans.isBST && rightans.isBST && root->data>leftans.max && root->data<rightans.min){
+        smallans.height=1+max(leftans.height,rightans.height);
+        smallans.isBST=true;
+    }
+    else{
+        smallans.height=max(leftans.height,rightans.height);
+        smallans.isBST=false;
+    }
+    return smallans;
+}
+
+int largestBSTSubtree(BinaryTreeNode<int> *root) {
+    largestBST ans=helper(root);    
+    return ans.height;
+}
