@@ -1,0 +1,16 @@
+void replaceWithLargerNodes(BinaryTreeNode<int> *root,int &data) {
+    if(root==NULL){
+        return ;
+    }
+    replaceWithLargerNodes(root->right,data);
+    root->data+=data;
+    data=root->data;
+    replaceWithLargerNodes(root->left,data);
+}
+
+
+void replaceWithLargerNodesSum(BinaryTreeNode<int> *root) {
+    // Write your code here
+    int data=0;
+    replaceWithLargerNodes(root,data);
+}
