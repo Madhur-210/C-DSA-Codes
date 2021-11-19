@@ -1,0 +1,35 @@
+#include <iostream>
+using namespace std;
+#include<climits>
+#include<cmath>
+bool find( BinaryTreeNode<int>* &root, int n){
+    if(root==NULL){
+        return false;
+    }
+    if(root->data==n){
+        root->data=INT_MIN;
+        return true;
+    }
+    return find(root->left,n)||find(root->right,n);
+}
+void sumpair(BinaryTreeNode<int> *cnode, int sum, BinaryTreeNode<int>* root){
+    if(cnode==NULL){
+        return;
+    }
+    if(cnode->data!=INT_MIN&&cnode->data!=sum/2){
+        if(find(root,sum-(cnode->data))){
+            cout<<min(cnode->data,sum-(cnode->data))<<" "<<max(cnode->data,sum-(cnode->data));
+            cout<<endl;
+        }
+        sumpair(cnode->left,sum,root);
+        sumpair(cnode->right,sum,root);
+    }
+    else{
+        sumpair(cnode->left,sum,root);
+        sumpair(cnode->right,sum,root);
+    }
+}
+
+void pairSum(BinaryTreeNode<int> *root, int sum) {
+    sumpair(root,sum,root); 
+}
