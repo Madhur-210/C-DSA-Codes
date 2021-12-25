@@ -60,3 +60,26 @@ Pair<int> maxSum(TreeNode<int>* root) {
 TreeNode<int>* maxSumNode(TreeNode<int>* root) {
     return maxSum(root).node;
 }
+
+//More Simpler
+class Pair{
+    public:
+    TreeNode<int>*node;
+    int nodeSum;
+};
+
+Pair maxSum(TreeNode<int>* root){
+    Pair ans;
+    ans.node=root;
+    ans.nodeSum=root->data;
+    for(int i=0;i<root->children.size();i++){
+        ans.nodeSum+=root->children[i]->data;
+    }
+    for(int i=0;i<root->children.size();i++){
+        Pair curr=maxSum(root->children[i]);
+        if(curr.nodeSum>ans.nodeSum){
+            ans=curr;
+        }
+    }
+    return ans;
+}
