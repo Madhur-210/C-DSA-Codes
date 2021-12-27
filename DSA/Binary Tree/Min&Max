@@ -33,3 +33,23 @@ pair<int, int> getMinAndMax(BinaryTreeNode<int> *root) {
     ans.second=maxi;
     return ans;
 }
+
+//Second Way Same but Shorter
+#include<climits>
+#include<math.h>
+pair<int, int> getMinAndMax(BinaryTreeNode<int> *root) {
+	// Write your code here
+    pair<int,int>p;
+    if(root==NULL){
+        p.first=INT_MAX;
+        p.second=INT_MIN;
+        return p;
+    }
+    p.first=root->data;
+    p.second=root->data;
+    pair<int,int>temp=getMinAndMax(root->left);
+    pair<int,int>righttemp=getMinAndMax(root->right);
+    p.first=min(temp.first,min(p.first,righttemp.first));
+    p.second=max(temp.second,max(p.second,righttemp.second));
+    return p;
+}
