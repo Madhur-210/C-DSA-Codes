@@ -44,3 +44,48 @@ vector<Node<int>*> constructLinkedListForEachLevel(BinaryTreeNode<int> *root) {
     }
     return ans;
 }
+
+//Almost Same But Wants to ADD
+vector<Node<int>*> constructLinkedListForEachLevel(BinaryTreeNode<int> *root) {
+    // Write your code here
+    vector<Node<int>*> ans;
+    if(root==NULL){
+        ans.push_back(NULL);
+        return ans;
+    }
+    queue<BinaryTreeNode<int> *> pending;
+    pending.push(root);
+    pending.push(NULL);
+    Node<int>*head=NULL;
+    Node<int>*tail=NULL;
+    while(!pending.empty()){
+        BinaryTreeNode<int> * first=pending.front();
+        pending.pop();
+        if(first==NULL){
+            ans.push_back(head);
+            head=NULL;
+            tail=NULL;
+            if(!pending.empty()){
+                pending.push(NULL);
+            }
+        }
+        else{
+            Node<int>*newNode=new Node<int>(first->data);
+            if(head==NULL){
+                head=newNode;
+                tail=newNode;
+            }
+            else{
+                tail->next=newNode;
+                tail=newNode;
+            }
+            if(first->left){
+                pending.push(first->left);
+            }
+            if(first->right){
+                pending.push(first->right);
+            }
+        }
+    }
+    return ans;
+}
