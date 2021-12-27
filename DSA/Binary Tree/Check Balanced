@@ -41,3 +41,42 @@ pair<int,bool> BalHeight(BinaryTreeNode<int>* root){
 bool isBalanced(BinaryTreeNode<int> *root) {
     return BalHeight(root).second;
 }
+
+// Little Bit Smaller
+//..First
+// int height(BinaryTreeNode<int>* root) {
+//     // Write our code here
+//     if(root==NULL){
+//         return 0;
+//     }
+//     return 1+max(height(root->left),height(root->right));
+// }
+
+// bool isBalanced(BinaryTreeNode<int> *root) {
+// 	// Write your code here
+//     if(root==NULL){
+//         return true;
+//     }
+//     return abs(height(root->left)-height(root->right))<=1 
+//     && isBalanced(root->left) && isBalanced(root->right);
+// }
+
+//..Second
+pair<int,int> isBalance(BinaryTreeNode<int> *root){
+    pair<int,int>ans;
+    if(root==NULL){
+        ans.first=1;
+        ans.second=0;
+        return ans;
+    }
+    pair<int,int> left=isBalance(root->left);
+    pair<int,int> right=isBalance(root->right);
+    ans.second = 1+max(left.second,right.second);
+    ans.first = abs(left.second-right.second)<=1 
+    && left.first && right.first;
+    return ans;
+}
+bool isBalanced(BinaryTreeNode<int> *root) {
+	// Write your code here
+    return isBalance(root).first;
+}
