@@ -19,3 +19,35 @@ TreeNode < int >* getSecondLargestNode (TreeNode < int >*root){
     }
     return sec;    
 }
+
+//Second Approach
+void getsecond(TreeNode<int>* root,TreeNode<int>* &max,TreeNode<int>* &second_max){
+    if(root==NULL){
+        return;
+    }
+    else if(max==NULL){
+        max=root;
+    }
+    else{
+        if(root->data>max->data){
+            second_max=max;
+            max=root;
+        }
+        else if( second_max!=NULL &&root->data>second_max->data && root->data!=max->data ){
+            second_max=root;
+        }
+        else if( second_max==NULL && root->data!=max->data ){
+            second_max=root;
+        }
+    }
+    for(int i=0;i<root->children.size();i++){
+        getsecond(root->children[i],max,second_max);
+    }
+}
+
+TreeNode<int>* getSecondLargestNode(TreeNode<int>* root) {
+    TreeNode<int>* second_max=NULL;
+    TreeNode<int>* max=NULL;
+    getsecond(root,max,second_max);
+	return second_max;
+}
