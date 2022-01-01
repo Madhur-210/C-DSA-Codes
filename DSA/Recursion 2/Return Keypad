@@ -24,3 +24,36 @@ int keypad(int num, string output[]){
     }
     return length*ans;
 }
+
+//Another Same Code
+#include <string>
+using namespace std;
+string str[10]={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+
+int keypad(int num, string output[]){
+    /* Insert all the possible combinations of the integer number into the output string array. You do not need to
+    print anything, just return the number of strings inserted into the array.
+    */
+    if(num<=1){
+        output[0]="";
+        return 1;
+    } 
+    int size=keypad(num/10,output);
+    int k=0;
+    for(int j=1;j<=str[num%10].size()-1;j++){
+        for(int i=0;i<size;i++){
+            output[size*j+i]=output[i];
+        }
+    }
+    k=0;
+    int i=0,j=0;
+    for(j=0;j<str[num%10].size();j++){    
+        for(i=0;i<size;i++){
+            output[k]=output[k]+str[num%10][j];
+            k++;
+            //output[size*j+i]+=str[num%10][j];
+        }
+    }
+    return k;
+    //return i*j;
+}
