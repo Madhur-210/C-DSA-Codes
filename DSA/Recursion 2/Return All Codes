@@ -32,3 +32,31 @@ int getCodes(string input, string output[10000]) {
     return ans1+ans2;
 }
 
+// I did it again
+#include <string.h>
+using namespace std;
+int getCodes(string input, string output[10000]) {
+    if(input.size()==0){
+        output[0]="";
+        return 1;
+    }
+    char str1=input[0]-49+'a';
+    int ans1=getCodes(input.substr(1),output);
+    for(int i=0;i<ans1;i++){
+        output[i]=str1+output[i];
+    }
+    string newoutput[10000];
+    if(input.size()==1){
+        return ans1;
+    }
+    int charno=(input[0]-48)*10+input[1]-48;
+    char str2=charno+'a'-1;
+    int ans2=0;
+    if(charno<=26){
+        ans2=getCodes(input.substr(2),newoutput);
+        for(int i=0;i<ans2;i++){
+            output[ans1+i]=str2+newoutput[i];
+        }
+    }
+    return ans1+ans2;
+}
