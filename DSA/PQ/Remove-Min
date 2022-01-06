@@ -73,3 +73,35 @@ class PriorityQueue {
         return ans;
     }
 };
+
+//New Remove Min Code
+int removeMin() {
+        // Write your code here
+        int ans = pq[0];
+        pq[0] = pq[pq.size()-1];
+        pq.pop_back();
+        int pi = 0;
+        int ci1=1;
+        int ci2=2;
+        while(ci1<pq.size()){
+            int min;
+            if(pq[pi]>pq[ci1] || pq[pi]>pq[ci2]){
+                if(pq[ci1]<pq[ci2]){
+                    min = ci1 ;
+                }
+                else{
+                    min = ci2 ;
+                }
+                int swap=pq[pi];
+                pq[pi]=pq[min];
+                pq[min]=swap;
+            }
+            else{
+                break;
+            }
+            pi=min;
+            ci1=2*pi+1;
+            ci2=2*pi+2;
+        }
+        return ans;
+    }
