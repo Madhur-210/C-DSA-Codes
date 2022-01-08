@@ -1,3 +1,22 @@
+//Fully Optimised Soln
+bool isMaxHeap(int arr[], int n) {
+    // Write your code here
+    int i=0;
+    while(i<n){
+        int pi=i;
+        int ci1=pi*2+1;
+        int ci2=pi*2+1+1;
+        if(ci2<n && arr[pi]<arr[ci2]){
+            return false;
+        }
+        if(ci1<n && arr[pi]<arr[ci1]){
+            return false;
+        }
+        i++;
+    }
+    return true;
+}
+
 bool isMaxHeap(int arr[], int n) {
     while(n-1>0){
         int ci=n-1;
