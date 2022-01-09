@@ -1,7 +1,46 @@
-// Naive Approach Give TLE in last Test Case
-
 #include<vector>
 #include<algorithm>
+#include<queue>
+
+void findMedian(int *arr, int n)
+{
+    // Write your code here
+    priority_queue<int> maxpq; // max
+    priority_queue<int,vector<int>,greater<int>> minpq; // min
+    for(int i=0;i<n;i++){
+        if(minpq.empty()){
+            minpq.push(arr[i]);
+        }
+        else if (arr[i]>minpq.top()){
+            minpq.push(arr[i]);
+        }
+        else{
+            maxpq.push(arr[i]);
+        }                                              // Just pushing elemnts in any of the PQs considering the small greater elemnt
+        if(abs(minpq.size()-maxpq.size())>1){          
+            if(minpq.size()>maxpq.size()){
+                maxpq.push(minpq.top());
+                minpq.pop();
+            }
+            else{                                      // Ensuring that size should be equal or just differ by 1
+                minpq.push(maxpq.top());
+                maxpq.pop();
+            }
+        }
+        if(i%2==0){                                    // if elements are odd then print the top element of PQ in which elemnts are more 
+            if(maxpq.size()>minpq.size()){
+                cout<<maxpq.top()<<" ";
+            }
+            else{
+                cout<<minpq.top()<<" ";
+            }
+        }
+        else{                                          // if even then print avg of the top of both PQs
+            cout<<(maxpq.top()+minpq.top())/2<<" ";    
+        }
+    }
+}
+// Naive Approach Give TLE in last Test Case
 void findMedian(int *arr, int n)
 {
     // Write your code here
