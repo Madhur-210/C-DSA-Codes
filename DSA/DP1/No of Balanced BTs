@@ -1,0 +1,53 @@
+const int MOD=1000000007;
+//--------------Brute-------------
+// int balancedBTs(int n) {
+//     // Write your code here
+//     if(n==0)return 0;
+//     if(n==1){
+//         return 1;
+//     }
+//     if(n==2){
+//         return 3;
+//     }
+//     return ((2*(long)balancedBTs(n-1)*balancedBTs(n-2))%MOD
+//         +((long)balancedBTs(n-1)*balancedBTs(n-1))%MOD)%MOD;
+// }
+//-------------Memo-------------------
+// int balancedBTs(int n, int *output) {
+//     // Write your code here
+//     if(n==0)
+//         return 0;
+//     if(n==1){
+//         return 1;
+//     }
+//     if(n==2){
+//         return 3;
+//     }
+//     if(output[n]!=-1){
+//         return output[n];
+//     }
+//     output[n] = ((2*(long)balancedBTs(n-1, output)*balancedBTs(n-2, output))%MOD
+//         +((long)balancedBTs(n-1, output)*balancedBTs(n-1, output))%MOD)%MOD;
+//     return output[n];
+// }
+// int balancedBTs(int n) {
+//     // Write your code here
+//     int *output=new int[n+1];
+//     for(int i=0;i<=n;i++){
+//         output[i]=-1;
+//     }
+//     return balancedBTs(n,output);
+// }
+//-----------------DP----------------------
+int balancedBTs(int n) {
+    // Write your code here
+    int *output=new int[n+1];
+    output[0]=0;
+    output[1]=1;
+    output[2]=3;
+    for(int i=3;i<=n;i++){
+        output[i]=((2*(long)output[i-1]*output[i-2])%MOD
+        +((long)output[i-1]*output[i-1])%MOD)%MOD;
+    }
+    return output[n];
+}
