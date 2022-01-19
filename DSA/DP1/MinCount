@@ -1,0 +1,65 @@
+//**************Brute Force**************
+// int minCount(int n)
+// {
+// 	//Write your code here
+//     if(n==0){
+//         return 0;
+//     }
+//     int finalans = n;
+//     for(int i=1;i*i<=n;i++){
+//         int ans=minCount(n-i*i);
+//         if(ans<finalans){
+//             finalans=ans;
+//         }
+//     }
+//     return finalans+1 ; 
+// }
+//*****************Memo*******************
+// int minCount(int n, int *output)
+// {
+// 	//Write your code here
+//     if(n==0){
+//         return 0;
+//     }
+//     if(output[n]!=-1){
+//         return output[n];
+//     }
+//     int finalans = n;
+//     for(int i=1;i*i<=n;i++){
+//         int ans=minCount(n-i*i,output);
+//         if(ans<finalans){
+//             finalans=ans;
+//         }
+//     }
+//     output[n]=finalans+1;
+//     return output[n] ; 
+// }
+// int minCount(int n)
+// {
+// 	//Write your code here
+//     // int *output=new int[n+1]{-1};  //This is Wrong
+//     int *output=new int[n+1];
+//     for(int i=0;i<=n;i++){
+//         output[i]=-1;
+//     }
+//     return minCount(n, output) ; 
+// }
+//********************DP********************
+int minCount(int n)
+{
+	int *output=new int[n+1];
+    output[0]=0;
+    output[1]=1;
+    output[2]=2;
+    output[3]=3;
+    for(int i=4;i<=n;i++){
+        int ans=i;
+        for(int j=1;j*j<=i;j++){
+            if(ans>output[i-j*j]){
+                ans = output[i-j*j];
+            }
+        }
+        output[i]=ans+1;
+    }
+    return output[n];
+}
