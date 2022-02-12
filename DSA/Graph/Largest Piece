@@ -1,0 +1,39 @@
+bool withinlimits(int x,int y,int n){
+    return (x >= 0 && x<n && y >= 0 && y < n);
+}
+int dfs(vector<vector<int>> &cake, int n,bool **visited,int x,int y){
+    if(cake[x][y]==0){
+        return 0;
+    }
+    visited[x][y] = true;
+    int ans = 1;
+    int dxdY[4][2]={{-1,0},{0,1},{1,0},{0,-1}};
+    for(int i=0;i<4;i++){
+        int newX = x + dxdY[i][0];
+        int newY = y + dxdY[i][1];
+        if (withinlimits(newX, newY, n) && cake[newX][newY] == 1 && !visited[newX][newY]){
+           ans += dfs (cake, n, visited,  newX, newY);
+        }
+    }
+    return ans;
+}
+
+int getBiggestPieceSize(vector<vector<int>> &cake, int n) {
+    // Write your code here
+    bool **visited = new bool*[n];
+    for(int i=0;i<n;i++){
+        visited[i] = new bool[n]{0};
+    }
+    int finalans = 0;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<cake[i].size();j++){
+            if(cake[i][j] && !visited[i][j]){
+                int ans = dfs(cake,n,visited,i,j);
+                if(ans>finalans){
+                    finalans = ans;    
+                }
+            }
+        }
+    }
+    return finalans;
+}
