@@ -1,0 +1,55 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+class Edge{
+    public:
+    int src;
+    int des;
+    int weight;
+};
+bool compare(Edge a, Edge b){
+    return a.weight < b.weight;
+}
+int findparent(int v, int *parent){
+    if(parent[v] == v){
+        return v;
+    }
+    return findparent(parent[v],parent);
+}
+int main() {
+    // Write your code here
+    int n,e;
+    cin>>n>>e;
+    Edge * input = new Edge[e];
+    for(int i=0;i<e;i++){
+        Edge * newEdge = new Edge;
+        cin>>newEdge->src>>newEdge->des>>newEdge->weight;
+        input[i] = *newEdge;
+    }
+    Edge * output = new Edge[n-1];
+    int *parent = new int[n];
+    for(int i=0;i<n;i++){
+        parent[i] = i;
+    }
+    sort(input, input+e, compare);
+    int count = 0;
+    int i=0;
+    while(count<n-1){
+        int p1 = findparent(input[i].src,parent);
+        int p2 = findparent(input[i].des,parent);
+        if(p1!=p2){
+            output[count] = input[i];
+            count++;
+            parent[p1] = p2;
+        }
+        i++;
+    }
+    for(int i=0;i<count;i++){
+        if(output[i].src<output[i].des)
+            cout<<output[i].src<<" "<<output[i].des<<" ";
+        else
+            cout<<output[i].des<<" "<<output[i].src<<" ";
+            cout<<output[i].weight<<endl;
+    }
+}
