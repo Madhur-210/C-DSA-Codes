@@ -1,0 +1,40 @@
+// This below code will give TLE in last case
+#include<unordered_map>
+int pairSum(int *arr, int n) {
+	// Write your code here
+    unordered_map<int, int> max;
+    int count = 0;
+    for(int i=0;i<n;i++){
+        max[arr[i]]++;
+    }
+    for(int i=0;i<n;i++){
+        if(arr[i] == 0){
+            count += max[arr[i]]*(max[arr[i]]-1)/2;
+            max[arr[i]] = 0;
+        }
+        count += max[arr[i]]*max[-arr[i]];
+        max[arr[i]] = 0;
+        max[-arr[i]] = 0;
+    }
+    return count;
+}
+
+// Second Approach
+#include<unordered_map>
+int pairSum(int *arr, int n) {
+	// Write your code here
+    unordered_map<int, int> max;
+    int count = 0;
+    for(int i=0;i<n;i++){
+        if(arr[i] == 0){
+            max[arr[i]] += 1;
+            continue;
+        }
+        max[arr[i]]++;
+        if(max[-arr[i]]!=0){
+            count+=max[-arr[i]];        // Most Imp Step
+        }
+    }
+    count += max[0]*(max[0]-1)/2;       // Be Careful Here
+    return count;
+}
