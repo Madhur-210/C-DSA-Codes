@@ -1,0 +1,16 @@
+//My Code
+#include<bits/stdc++.h>
+void printIntersection(int arr1[], int arr2[], int n, int m) {
+    // Write your code here
+    sort(arr1,arr1+n);                        // This line becomes optional as code works fine without it , ignore problem statement
+    unordered_map<int , int> ans;
+    for(int i=0;i<m;i++){
+        ans[arr2[i]]++;
+    }
+    for(int i=0;i<n;i++){
+        if(ans[arr1[i]]>0){
+            cout<<arr1[i]<<endl;
+            ans[arr1[i]]--;
+        }
+    }
+}
