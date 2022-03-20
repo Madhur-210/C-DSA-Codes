@@ -71,3 +71,31 @@ Node *skipMdeleteN(Node *head, int M, int N)
         temp->next=NULL;
     return head;
 }
+// Latest Answer
+Node *skipMdeleteN(Node *head, int m, int n)
+{
+	// Write your code here
+    if(m==0){
+        return NULL;
+    }
+    if(n==0 || head==NULL){
+        return head;
+    }
+    Node*ans=head;
+    while(head!=NULL){
+        int i=0;
+        while(i<m-1 && head->next!=NULL){
+            head=head->next;
+            i++;
+        }
+        Node*temp = head;
+        head = head->next;
+        i=0;
+        while(i<n && head!=NULL){
+            head = head->next;
+            i++;
+        }
+        temp->next=head;
+    }
+    return ans;
+}
