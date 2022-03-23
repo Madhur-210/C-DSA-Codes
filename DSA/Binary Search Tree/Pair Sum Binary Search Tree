@@ -1,0 +1,74 @@
+#include<stack>
+void printNodesSumToS(BinaryTreeNode<int> *root, int s) {
+    // Write your code here
+    if(root==NULL)return;
+    stack<BinaryTreeNode<int> *>low;
+    stack<BinaryTreeNode<int> *>high;
+    BinaryTreeNode<int> *newroot=root;
+    while(newroot!=NULL){
+        low.push(newroot);
+        newroot = newroot->left;
+    }
+    newroot = root;
+    while(newroot!=NULL){
+        high.push(newroot);
+        newroot = newroot->right;
+    }
+    
+    while(low.top()->data<high.top()->data){
+        int l = low.top()->data;
+        int h = high.top()->data;
+        BinaryTreeNode<int> *currnode,*temp;
+        if(l+h==s){
+            cout<<l<<" "<<h<<endl;
+            currnode = low.top();
+            low.pop();
+            if(currnode->right){
+                low.push(currnode->right);
+                temp = currnode->right;
+                temp = temp->left;
+                while(temp!=NULL){
+                    low.push(temp);
+                    temp=temp->left;
+                }
+            }
+            currnode = high.top();
+            high.pop();
+            if(currnode->left){
+                high.push(currnode->left);
+                temp = currnode->left;
+                temp = temp->right;
+                while(temp!=NULL){
+                    high.push(temp);
+                    temp = temp->right;
+                }
+            }
+        }
+        else if(l+h<s){
+            currnode = low.top();
+            low.pop();
+            if(currnode->right){
+                low.push(currnode->right);
+                temp = currnode->right;
+                temp = temp->left;
+                while(temp!=NULL){
+                    low.push(temp);
+                    temp=temp->left;
+                }
+            }
+        }
+        else{
+            currnode = high.top();
+            high.pop();
+            if(currnode->left){
+                high.push(currnode->left);
+                temp = currnode->left;
+                temp = temp->right;
+                while(temp!=NULL){
+                    high.push(temp);
+                    temp = temp->right;
+                }
+            } 
+        }
+    }
+}
