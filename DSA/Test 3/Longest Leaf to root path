@@ -1,0 +1,33 @@
+vector<int>* longestPath(BinaryTreeNode<int>* root) {
+	// Write your code here
+    vector<int>*ans;
+    if(root==NULL){
+        return NULL;
+    }
+    if(root->left==NULL && root->right==NULL){
+        vector<int>* v = new vector<int>();
+        v->push_back(root->data);
+        return v;
+    }
+    vector<int>*leftans = longestPath(root->left);
+    vector<int>*rightans = longestPath(root->right);
+    if(leftans!=NULL && rightans!=NULL){
+        if(leftans->size()<rightans->size()){
+            ans = rightans;
+        }
+        else{
+            ans = leftans;
+        }
+        ans->push_back(root->data);
+        return ans;
+    }
+    if(leftans!=NULL){
+        ans = leftans;
+        ans->push_back(root->data);
+    }
+    if(rightans!=NULL){
+        ans = rightans;
+        ans->push_back(root->data);
+    }
+    return ans;
+}
