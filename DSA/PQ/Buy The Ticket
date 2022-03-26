@@ -23,3 +23,33 @@ int buyTicket(int *arr, int n, int k) {
         }
     }
 }
+
+// Adding New One
+#include<queue>
+int buyTicket(int *arr, int n, int k) {
+    // Write your code here
+    queue<int>q;
+    priority_queue<int>pq;
+    int i = 0;
+    while(i<n){
+        q.push(i);
+        pq.push(arr[i]);
+        i++;
+    }
+    int ans = 0;
+    while(true){
+        if(pq.top()>arr[q.front()]){
+            q.push(q.front());
+            q.pop();
+        }
+        else{
+            if(q.front()==k){
+                return ans+1;
+            }
+            ans++;
+            pq.pop();
+            q.pop();
+        }
+    }
+    return ans;
+}
