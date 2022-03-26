@@ -1,0 +1,43 @@
+void nodesAtDepthK(BinaryTreeNode<int> *root, int node, int k) {
+    // Write your code herez
+    if(root==NULL){
+        return;
+    }
+    if(k==0){
+        cout<<root->data<<endl;
+        return;
+    }    
+    nodesAtDepthK(root->left,node,k-1);
+    nodesAtDepthK(root->right,node,k-1);
+}
+
+int nodesAtDistance(BinaryTreeNode<int> *root, int node, int k) {
+    // Write your code herez
+    if(root==NULL){
+        return -1;
+    }
+    if(root->data == node){
+        nodesAtDepthK(root, node, k);
+        return 0;
+    }
+    int ld = nodesAtDistance(root->left,node,k);
+    if(ld!=-1){
+        if(ld==k-1){
+            cout<<root->data<<" ";
+        }
+        else nodesAtDepthK(root->right, node, k-ld-2);
+        return 1+ld;
+    }
+    int rd = nodesAtDistance(root->right, node, k);
+    if(rd!=-1){
+        if(rd==k-1){
+            cout<<root->data<<" ";
+        }
+        else nodesAtDepthK(root->left, node, k-rd-2);
+        return 1+rd;
+    }
+    return -1;
+}
+void nodesAtDistanceK(BinaryTreeNode<int> *root, int node, int k) {
+    nodesAtDistance(root,node,k);
+}
