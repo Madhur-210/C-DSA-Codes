@@ -1,0 +1,47 @@
+#include<unordered_map>
+vector<int> longestConsecutiveIncreasingSequence(int *arr, int n) {
+    int max = 0;
+    int anslarge;
+    int anssmall;
+    unordered_map<int,bool> map;
+    unordered_map<int,int> indexmap;
+    for(int i=0;i<n;i++){
+        indexmap[arr[i]] = i;
+        map[arr[i]] = true;
+        int count = 1;
+        int small = arr[i];
+        int large = small;
+        int index = 1;
+        while(map[arr[i]+index]){
+            large = arr[i]+index;
+            count++;
+            index++;
+        }
+        index = 1;
+        while(map[arr[i]-index]){
+            small = arr[i]-index;
+            count++;
+            index++;
+        }
+        if(count>max){
+            max = count;
+            anssmall = small;
+            anslarge = large;
+        }
+        else if(count==max){
+            if(indexmap[anssmall]>indexmap[small]){
+                anssmall = small;
+                anslarge = large;
+            }
+        }
+    }
+    vector<int>ans;
+    if(anssmall == anslarge){
+        ans.push_back(anssmall);
+    }
+    else {
+        ans.push_back(anssmall);
+        ans.push_back(anslarge);
+    }
+    return ans;
+}
