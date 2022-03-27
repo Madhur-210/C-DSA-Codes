@@ -33,11 +33,11 @@ int getPairsWithDifferenceK(int *arr, int n, int k) {
         if(map[arr[i]-k]){
             count+=map[arr[i]-k];
         }
-        if(k!=0)
+        if(k!=0)                       // This step is imp 
         if(map[arr[i]+k]){
             count+=map[arr[i]+k];
         }
-        map[arr[i]] += 1;
+        map[arr[i]] += 1;              // Nice Thinking
     }
     return count;
 }
