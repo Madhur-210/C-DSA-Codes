@@ -16,3 +16,15 @@ void deleteAlternateNodes(Node *head) {
         curr=prev->next;
     }
 }
+
+// Recursive Approach
+void deleteAlternateNodes(Node *head) {
+    
+    if(head == NULL || head->next == NULL){
+        return ;
+    }
+    Node * temp = head->next->next;
+    head->next = temp;
+    
+    deleteAlternateNodes(temp);
+}
