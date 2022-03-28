@@ -1,0 +1,42 @@
+bool search(TrieNode*root,string word) {
+        
+        if(word.size()==0)
+        {
+                return true;
+        }
+        int index = word[0]-'a';
+           
+         if(root->isTerminal==true){ // this condition for special case like abc dddcba
+         return true;
+        }
+           
+        TrieNode*child;
+        if(root->children[index]==NULL)
+            return false;
+        else
+        {
+            child = root->children[index];
+            bool d = search(child,word.substr(1));
+            return d;
+        }
+    }
+    bool search(string word)
+    {
+        return search(root,word);
+    }
+    
+    bool isPalindromePair(vector<string> words) {
+        
+        for(int i=0;i<words.size();i++)
+            add(words[i]);
+        
+        for(int i=0;i<words.size();i++)
+        {
+            string a = words[i];
+            reverse(a.begin(),a.end());
+            bool d = search(a);
+            if(d==true)
+               return true;  
+        }
+        return false;    
+    }
