@@ -18,6 +18,7 @@ bool search(TrieNode *root, string word){
         return search(root,word);
     }
 
+// Updated and Small
     bool search(TrieNode *root, string word){
         if(word.size()==0){
             return root->isTerminal;
