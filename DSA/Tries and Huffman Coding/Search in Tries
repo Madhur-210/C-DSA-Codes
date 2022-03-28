@@ -17,3 +17,16 @@ bool search(TrieNode *root, string word){
         // Write your code here
         return search(root,word);
     }
+
+    bool search(TrieNode *root, string word){
+        if(word.size()==0){
+            return root->isTerminal;
+        }
+        int index = word[0] - 'a';
+        if(root->children[index] != NULL){
+            return search(root->children[index],word.substr(1));
+        }
+        else{
+            return false;
+        }
+    }
