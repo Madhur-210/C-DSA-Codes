@@ -1,0 +1,247 @@
+#include <string>
+using namespace std;
+
+string str[] = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"}; 
+
+int keypad(int num, string output[]){
+    /* Insert all the possible combinations of the integer number into the output string array. You do not need to
+    print anything, just return the number of strings inserted into the array.
+    */
+    if(num == 0){
+        output[0] = "";
+        return 1;
+    }
+    int ans = keypad(num/10,output);
+    string curr = str[num%10];
+    for(int i=1;i<=curr.size()-1;i++){
+        for(int j=0;j<ans;j++){
+            output[ans*i+j] = output[j];
+        }
+    }
+    int i,j;
+    for(i=0;i<curr.size();i++){
+        for(j=0;j<ans;j++){
+            output[ans*i+j] = output[ans*i+j] + curr[i];
+        }
+    }
+    return i*j;
+}
+#include <iostream>
+#include <string>
+using namespace std;
+
+string str[]={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+
+void printKeypad(int num, string output){
+    if(num == 0){
+        cout<<output<<endl;
+        return ;
+    }
+    string curr = str[num%10];
+    for(int i=0;i<curr.size();i++){
+        printKeypad(num/10,curr[i] + output);
+    }
+}
+
+void printKeypad(int num){
+    /*
+    Given an integer number print all the possible combinations of the keypad. You do not need to return anything just print them.
+    */
+    string output = "";
+    printKeypad(num,output);
+}
+int subset(int input[], int n, int output[][20]) {
+    // Write your code here
+    if(n==0){
+        output[0][0] = 0;
+        return 1;
+    }
+    int ans = subset(input+1, n-1, output);
+    for(int i=0;i<ans;i++){
+        output[ans+i][0] = output[i][0] + 1;
+        output[ans+i][1] = input[0];
+        for(int j=0;j<output[i][0];j++){
+            output[ans+i][j+2] = output[i][j+1];
+        }
+    }
+    return 2*ans;
+}
+void printSubsetsOfArray(int input[], int size, int output[], int length){
+    if(size==0){
+        for(int i=0;i<length;i++){
+            cout<<output[i]<<" ";
+        }
+        cout<<endl;
+        return ;
+    }
+    printSubsetsOfArray(input+1, size-1, output, length);
+    output[length] = input[0];
+    printSubsetsOfArray(input+1, size-1, output, length+1);
+}
+void printSubsetsOfArray(int input[], int size) {
+	// Write your code here
+    int output[1000];
+    printSubsetsOfArray(input, size, output, 0);
+}
+int subsetSumToK(int input[], int n, int output[][50], int k) {
+    // Write your code here
+    if(n==0){
+        if(k==0){
+        output[0][0] = 0;
+        return 1;
+        }
+        return 0;
+    }
+    int includek[10000][50];
+    int ans = subsetSumToK(input+1,n-1,output,k);
+    int ans2 = subsetSumToK(input+1,n-1,includek,k-input[0]);
+    for(int i = 0;i<ans2;i++){
+        output[ans+i][0] = includek[i][0] + 1;
+        output[ans+i][1] = input[0];
+        for(int j=0;j<includek[i][0];j++){
+            output[ans+i][j+2] = includek[i][j+1];
+        }
+    }
+    return ans+ans2;
+}
+void printSubsetSumToK(int input[], int size, int k, int output[], int n){
+    if(size == 0){
+        if(k==0){
+            for(int i=0;i<n;i++){
+                cout<<output[i]<<" ";
+            }
+            cout<<endl;
+        }
+        return ;
+    }
+    printSubsetSumToK(input+1, size-1, k, output, n);
+    output[n] = input[0];
+    printSubsetSumToK(input+1, size-1, k-input[0], output, n+1);
+}
+
+void printSubsetSumToK(int input[], int size, int k) {
+    // Write your code here
+    int output[1000];
+    printSubsetSumToK(input, size, k, output, 0);
+}
+#include <string.h>
+using namespace std;
+
+int getCodes(string input, string output[10000]) {
+    /*
+    You are given the input text and output string array. Find all possible codes and store in the output string array. Don’t print the codes.
+    Also, return the number of codes return to the output string. You do not need to print anything.
+    */
+    if(input == ""){
+        output[0] = "";
+        return 1;
+    }
+    char c = input[0] + 48;
+    int ans = getCodes(input.substr(1), output);
+    for(int i=0;i<ans;i++){
+        output[i] = c+output[i];
+    }
+    string output2[10000];
+    if(input.size()>1){
+        int num = (input[0] - 48)*10 + input[1] - 48;
+        if(num>=10 && num<=26){
+            char c1 = num + 96;
+            int ans1 = getCodes(input.substr(2),output2);
+            for(int i=0;i<ans1;i++){
+                output[ans+i] = c1 + output2[i];
+            }
+            return ans+ans1;
+        }
+    }
+    return ans;
+}
+#include <string.h>
+using namespace std;
+
+void printAllPossibleCodes(string input, string output){
+    if(input == ""){
+        cout<<output<<endl;
+        return ;
+    }
+    string newoutput = output;
+    char c = (input[0]+48);
+    output = output + c;
+    printAllPossibleCodes(input.substr(1), output);
+    int num = (input[0]-48)*10+(input[1]-48);
+    char c1 = 96+num;
+    if(num<=26 && num>=10){
+        newoutput = newoutput + c1;
+        printAllPossibleCodes(input.substr(2), newoutput);
+    }
+}
+
+void printAllPossibleCodes(string input) {
+    /*
+    Given the input as a string, print all its possible combinations. You do not need to return anything.
+    */
+    string output="";
+    printAllPossibleCodes(input,output);
+}
+#include <string>
+using namespace std;
+
+int returnPermutations(string input, string output[]){
+   	/* Don't write main() function.
+	 * Don't read input, it is passed as function argument.
+	 * Print output as specified in the question
+	*/ 
+    if(input == ""){
+        output[0] = "";
+        return 1;
+    }
+    int i,j;
+    string smalloutput[1000];
+    int ans = returnPermutations(input.substr(1), smalloutput);
+    char curr = input[0];
+    for(i=0;i<ans;i++){
+        string temp = smalloutput[i];
+        int size = temp.size()+1;
+        for(j=0;j<=temp.size();j++){
+            output[i*size+j] = temp.substr(0,j) + curr + temp.substr(j);
+        }
+    }
+    return i*j;
+}
+
+// int returnPermutations(string input, string output[]){
+   	
+//     if(input == ""){
+//         output[0] = "";
+//         return 1;
+//     }
+//     int i,j;
+//     for(i=0;i<input.size();i++){
+//         string smallinput = input.substr(0,i) + input.substr(i+1);
+//         string smalloutput[10000];
+//         char curr = input[i];
+//         int ans = returnPermutations(smallinput, smalloutput);
+//         for(j=0;j<ans;j++){
+//             output[ans*i+j] = curr + smalloutput[j];
+//         }
+//     }
+//     return i*j;
+// }
+#include <iostream>
+#include <string>
+using namespace std;
+
+void printPermutation(string input, string output){
+    if(input == ""){
+        cout<<output<<endl;
+        return ;
+    }
+    for(int i=0;i<input.size();i++){
+        printPermutation(input.substr(0,i)+input.substr(i+1), output+input[i]);
+    }
+}
+
+void printPermutations(string input){
+
+    string output = "";
+    printPermutation(input,output);
+}
