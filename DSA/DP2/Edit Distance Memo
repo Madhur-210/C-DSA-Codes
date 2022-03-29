@@ -1,0 +1,36 @@
+int editDistance(string s1, string s2, int **output) {
+	// Write your code here
+    int size1 = s1.size();
+    int size2 = s2.size();
+    if(size1 == 0 && size2 == 0){
+        return 0;
+    }
+    if(size1 == 0 || size2 == 0){
+        return size1+size2;
+    }
+    if(output[size1][size2]!=-1){
+        return output[size1][size2];
+    }
+    if(s1[0] == s2[0]){
+        return editDistance(s1.substr(1),s2.substr(1),output);
+    }
+    output[size1][size2] = 1+min(editDistance(s1.substr(1),s2,output),
+    min(editDistance(s1,s2.substr(1),output),editDistance(s1.substr(1),s2.substr(1),output)));
+
+    return output[size1][size2];
+}
+
+int editDistance(string s1, string s2)
+{
+	//Write your code here
+    int m = s1.size();
+    int n = s2.size();
+    int **output = new int*[m+1];
+    for(int i=0;i<=m;i++){
+        output[i] = new int[n+1];
+        for(int j=0;j<=n;j++){
+            output[i][j] = -1;
+        }
+    }
+    return editDistance(s1,s2,output);
+}
