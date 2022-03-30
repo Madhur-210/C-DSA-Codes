@@ -1,0 +1,18 @@
+#include<bits/stdc++.h>
+int knapsack(int* weight, int* value, int n, int maxWeight) {
+	// Write your code here
+    int **arr = new int*[2];
+    for(int i=0;i<=2;i++){
+        arr[i] = new int[maxWeight+1]{0};
+    }
+    for(int i=0;i<n;i++){
+        for(int j=1;j<=maxWeight;j++){
+            int temp = INT_MIN;
+            if(weight[i]<=j){
+                temp = value[i] + arr[(i+1)%2][j-weight[i]];
+            }
+            arr[i%2][j] = max(temp,arr[(i+1)%2][j]);
+        }
+    }
+    return arr[(n+1)%2][maxWeight];
+}
