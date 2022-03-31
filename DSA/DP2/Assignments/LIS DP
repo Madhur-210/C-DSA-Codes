@@ -1,0 +1,19 @@
+int longestIncreasingSubsequence(int* arr, int n) {
+	// Write your code here
+    int ans = 1;
+    int *output = new int[n];
+    output[0] = 1;
+    for(int i=1;i<n;i++){
+        output[i] = 1;                     // Atleast one element will always be there
+        for(int j=0;j<i;j++){              // Checking all previous element 
+            if(arr[j]<arr[i]){
+                output[i] = max(output[i],output[j]+1);
+            }
+            else
+                continue;
+        }
+        ans = max(ans,output[i]);
+    }
+    delete [] output;
+    return ans;
+}
