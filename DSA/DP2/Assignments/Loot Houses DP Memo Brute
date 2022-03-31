@@ -1,0 +1,36 @@
+//------------------DP----------------------------------
+int maxMoneyLooted(int *arr, int n)
+{
+	//Write your code here
+    int *output = new int[n+1]{0};
+    output[0] = 0;
+    output[1] = arr[0];
+    for(int i=2;i<=n;i++){
+        output[i] = max(arr[i-1]+output[i-2], output[i-1]);
+    }
+    return output[n];
+}
+//-------------------------------------Memo--------------------------------------------------------
+int maxMoneyLooted(int *arr, int n, int *output)
+{
+	  if(n<=0){
+        return 0;
+    }
+    if(output[n]!=0){
+        return output[n];
+    }
+    output[n] = max(arr[0] + maxMoneyLooted(arr+2, n-2, output), maxMoneyLooted(arr+1, n-1, output));
+    return output[n];
+}
+int maxMoneyLooted(int *arr, int n){
+    int *output = new int[n+1]{0};
+    return maxMoneyLooted(arr,n,output);
+}
+//----------------------------------------------Brute-----------------------------------------------
+int maxMoneyLooted(int *arr, int n)
+{
+	  if(n<=0){
+        return 0;
+    }
+    return max(arr[0] + maxMoneyLooted(arr+2, n-2), maxMoneyLooted(arr+1, n-1));
+}
