@@ -1,0 +1,25 @@
+
+void makeRowsCols0(int **input, int rows, int cols) {
+	// Write your code here
+    int *arr=new int[rows]{0};
+    int *brr=new int[cols]{0};
+    for(int i=0;i<rows;i++){
+        for(int j=0;j<cols;j++){
+            if(input[i][j]==0){
+                arr[i] = 1;
+                brr[j] = 1;
+            }
+        }
+    }
+    for(int i=0;i<rows;i++){
+        for(int j=0;j<cols;j++){
+            if(arr[i] || brr[j]){
+                input[i][j] = 0;
+            }
+        }
+    }
+    delete []arr;
+    delete []brr;
+}
+
+
