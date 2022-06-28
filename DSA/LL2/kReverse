@@ -36,3 +36,53 @@ Node *kReverse(Node *head, int k)
     anstail->next=kReverse(nexthead,k);
     return anshead;
 }
+
+/****************************************************************
+ 
+    Following is the class structure of the Node class:
+
+        class Node
+        {
+        public:
+	        int data;
+	        Node *next;
+	        Node(int data)
+	        {
+		        this->data = data;
+		        this->next = NULL;
+	        }
+        };
+// Pretty Code
+*****************************************************************/
+Node *kReverse(Node *head , int k)
+{
+    if(k == 0 || k == 1)
+    {
+        return head;
+    }
+
+    //CODE TO REVERSE A LINKED LIST ITERATIVELY  
+    /***************************************/
+    Node *current = head;
+    Node *forward = NULL;
+    Node *previous = NULL;
+
+    int count = 0;
+
+    while(count < k && current != NULL)
+    {
+        forward = current -> next;
+        current -> next = previous;
+        previous = current;
+        current = forward;
+        count++;
+    }
+    /****************************************/
+
+    if(forward != NULL)
+    {
+        head -> next = kReverse(forward , k);
+    }
+
+    return previous;
+}
